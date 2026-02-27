@@ -18,8 +18,8 @@ const taskSchema = mongoose.Schema({
         type: Date,
         required: false
     },
-    userID: {
-        type: Number,
+    user: {
+        type: String,
         required: true
     
     }    
@@ -27,3 +27,6 @@ const taskSchema = mongoose.Schema({
     {
         TimeStamps: true
     });
+
+
+export default taskSchema
