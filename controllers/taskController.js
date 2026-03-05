@@ -1,9 +1,10 @@
 import asyncHandler from 'express-async-handler'
 import Task  from '../models/tasks.js' 
+import User from '../models/user.js'
 
 
 // @desc Get all tasks
-// @route GET /api/tasks
+// @route GET /api/user/tasks
 const getAllTasks = asyncHandler(async (req, res,next) => {
     try {
         const tasks = await Task.find({user: req.user.id})
@@ -15,7 +16,7 @@ const getAllTasks = asyncHandler(async (req, res,next) => {
 
 
 // @desc Create task
-// @route POST /api/tasks
+// @route POST /api/user/tasks
 const addTask = asyncHandler(async (req, res,next) => {
     try {
         const task = await Task.create({
@@ -30,7 +31,7 @@ const addTask = asyncHandler(async (req, res,next) => {
 })
 
 // @desc Get a single task by id
-// @route /api/users/tasks/:id
+// @route /api/user/tasks/:id
 const getTask = asyncHandler(async (req, res, next) => {
     try {
         const task = await Task.findOne({
@@ -48,7 +49,7 @@ const getTask = asyncHandler(async (req, res, next) => {
 })
 
 // @desc update a task
-// @route PATCH /api/tasks/:id
+// @route PATCH /api/user/tasks/:id
 const updateTask = asyncHandler(async (req, res) => {
     try {
         const task = await Task.findOneAndUpdate({

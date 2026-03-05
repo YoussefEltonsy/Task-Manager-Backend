@@ -1,17 +1,13 @@
 import express from 'express'
-import taskRoute from './routes/taskRoute.js'
+import app from './app.js'
 import dotenv from 'dotenv'
+import connectDB from './config/db.js'
+
+
 dotenv.config();
+const port = process.env.PORT || 6000;
 
-const app = express();
-const port =  process.env.PORT || 6000;
-
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }));
-
-app.use('/api/user', taskRoute)
-
+connectDB();
 
 app.get('/',(req,res)=> res.send('Server is ready'))
 

@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import generateToken from "../utils/jwtToken.js";
+import asyncHandler from "express-async-handler";
 
 
 
@@ -8,6 +9,7 @@ import generateToken from "../utils/jwtToken.js";
 const registerUser = asyncHandler(async (req, res,next) => {
     try {
         const { name, email, password } = req.body;
+        console.log(User)
 
         const existingUser = await User.findOne({ email })
         if (existingUser) {
@@ -31,6 +33,8 @@ const registerUser = asyncHandler(async (req, res,next) => {
    }
 })
 
+// @desc Login user
+// @route POST /api/auth/login
 const loginUser = asyncHandler(async (req, res,next) => {
     try {
         const { email, password } = req.body;
@@ -63,7 +67,8 @@ const loginUser = asyncHandler(async (req, res,next) => {
 })
 
 
-
+// @desc Logout user
+// @route POST /api/auth/logout
 const logoutUser = asyncHandler(async (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,

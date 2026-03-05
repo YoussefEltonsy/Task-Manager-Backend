@@ -2,9 +2,10 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/user.js'
 
 // @desc GET current user profile
-// @route GET /api/users/me
+// @route GET /api/user/profile
 const getProfile = asyncHandler(async (req, res, next) => {
     try {
+        console.log(req.user.id)
         const user = await User.findById(req.user.id)
 
         res.status(200).json({
@@ -21,7 +22,7 @@ const getProfile = asyncHandler(async (req, res, next) => {
 
 
 // @desc update profile
-// @route PATCH /api/users/me
+// @route PATCH /api/user/profile
 const updateProfile = asyncHandler(async (req, res, next) => {
     try {
         const updates = req.body;
@@ -43,7 +44,7 @@ const updateProfile = asyncHandler(async (req, res, next) => {
 
 
 // @desc delete account
-// @route DELETE /api/users/me
+// @route DELETE /api/user/profile
 const deleteProfile = asyncHandler(async (req, res, next) => {
     try {
         await User.findByIdAndDelete(req.user.id);
