@@ -52,6 +52,7 @@ const getTask = asyncHandler(async (req, res, next) => {
 // @route PATCH /api/user/tasks/:id
 const updateTask = asyncHandler(async (req, res) => {
     try {
+        console.log(req.params.id)
         const task = await Task.findOneAndUpdate({
             _id: req.params.id,
             user: req.user.id
