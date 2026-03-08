@@ -27,11 +27,20 @@ const updateProfile = asyncHandler(async (req, res, next) => {
     try {
         const updates = req.body;
 
+/*      RHIS DOES NOT TRIGGER pre('save') AND PASSWORD IS SAVED AS A PLAIN TEXT
+        
         const user = await User.findByIdAndUpdate(
             req.user.id,
             updates,
             {new:true , runValidators: true}
-        )
+        )*/
+        
+        const user = await User.findById(req.user.id);
+
+        Object.assign(user, updates);
+
+        await user.save(); // triggers pre('save')
+        
         res.status(201).json({
             success: true,
             data: user,
@@ -48,6 +57,11 @@ const updateProfile = asyncHandler(async (req, res, next) => {
 const deleteProfile = asyncHandler(async (req, res, next) => {
     try {
         await User.findByIdAndDelete(req.user.id);
+         
+        res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0)
+    })
         
         res.status(200).json({msg: 'Account delted successfully'})
     } catch (error) {

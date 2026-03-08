@@ -50,7 +50,7 @@ const getTask = asyncHandler(async (req, res, next) => {
 
 // @desc update a task
 // @route PATCH /api/user/tasks/:id
-const updateTask = asyncHandler(async (req, res) => {
+const updateTask = asyncHandler(async (req, res, next) => {
     try {
         console.log(req.params.id)
         const task = await Task.findOneAndUpdate({
@@ -75,11 +75,11 @@ const updateTask = asyncHandler(async (req, res) => {
 
 // @desc Delete a task
 // @route /api/user/tasks/:id
-const deleteTask = asyncHandler(async (req, res) => {
+const deleteTask = asyncHandler(async (req, res, next) => {
     try {
         const task = await Task.findOneAndDelete({
             _id: req.params.id,
-            user: req.body.id
+            user: req.user.id
         })
         if (!task) {
            res.status(404).json({msg: 'Task not found'})
